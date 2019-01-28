@@ -1,0 +1,35 @@
+{
+  "type": "array",
+  "items": {
+    "type": "array",
+    "items": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "formula": {
+              "type": "string"
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "title": "Spreadsheet"
+}

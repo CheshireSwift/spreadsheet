@@ -1,0 +1,71 @@
+digraph data {
+  // newrank=true
+  rankdir=LR
+  // splines=ortho
+  // concentrate=true
+
+  color=none
+  node[shape=rectangle]
+  // edge[style=tapered;penwidth=7]
+
+  subgraph cluster_raw { label="Raw"
+    color=pink;style=filled;node[color=red]
+
+    MD_e[label="Markdown"]
+    JSON_e[label="JSON"]
+    Binary_e[label="Binary"]
+  }
+
+  subgraph cluster_filled { label="Computed"
+    color=lightgreen;style=filled;node[color=green]
+
+    MD_f[label="Markdown"]
+    JSON_f[label="JSON"]
+    Binary_f[label="Binary"]
+  }
+
+  { node[shape=ellipse;color=blue;fontcolor=blue]
+    // AJAX
+    // CLI
+    editor
+    output
+    parse
+    core
+  }
+
+  // subgraph cluster_external {
+  //   AJAX CLI editor
+  // }
+
+  // subgraph cluster_internal {
+  //   parse output
+  // }
+
+  Memory
+  Browser
+  Console
+
+  { edge[color=red;fontcolor=red]
+    Binary_e -> core -> Memory
+    { MD_e JSON_e MD_f JSON_f } -> parse -> Binary_e
+    // Browser -> AJAX -> JSON_e 
+    Browser -> JSON_e 
+    Console -> editor -> { MD_e JSON_e } 
+  }
+
+  { edge[color=green;fontcolor=green]
+    Memory -> core -> Binary_f
+    Binary_f -> output -> { MD_f JSON_f }
+    // { MD_f JSON_f } -> CLI -> Console
+    { MD_f JSON_f } -> Console
+    // JSON_f -> AJAX -> Browser
+    JSON_f -> Browser
+  }
+
+  { rank=source; Browser Console }
+  { rank=same; MD_e MD_f JSON_e JSON_f }
+  { rank=same; Binary_e Binary_f }
+  // { rank=same; AJAX CLI editor }
+  { rank=same; parse output}
+  { rank=sink; Memory}
+}

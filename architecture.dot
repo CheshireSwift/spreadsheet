@@ -1,0 +1,58 @@
+digraph spreadsheet {
+  style=filled
+  color=transparent
+  rankdir=LR
+  label=Spreadsheet
+  newrank=true
+
+  subgraph cluster_frontend {
+    label=""
+    subgraph cluster_browser { label=Browser
+      color=lightyellow
+      Web_C[label="Web page\n(Local calc, CPU/bundle-bound)"]
+      Web_T[label="Web page\n(Remote calc, traffic-bound)"]
+    }
+
+    subgraph cluster_cli { label=Terminal
+      color=lightgreen
+      TUI[label="TUI (curses?)"]
+      exec[label="Executor"]
+    }
+  }
+
+  // subgraph cluster_formats { label=Formats
+  //   MD[label="Markdown tables"]
+  //   JSON
+  // }
+
+// subgraph cluster_compute {
+  subgraph cluster_server { label=Server
+    color=lightblue
+    S_API[label="API"]
+    S_Web[label="Web"]
+  }
+
+  subgraph cluster_engine { label=Core
+    color=pink
+    // E_JS[label="JS"]
+    // E_R[label="Rust"]
+    Engine
+    Plugins[label="Plugins (JS)"]
+  }
+// }
+
+
+  file[label="Plaintext file"]
+  { Web_C Web_T } -> S_Web
+  Web_C -> { Engine }
+  Engine -> Plugins 
+  // S_Web -> S_API //[label="Internal HTTP?"]
+  S_API -> Engine
+  TUI -> { file exec }
+  Web_T -> S_API
+  // S_API -> JSON
+  exec -> Engine
+  file -> exec
+  { rank=same; Web_C Web_T TUI exec }
+  { rank=min; file}
+}
