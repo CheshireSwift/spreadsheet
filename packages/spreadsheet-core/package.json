@@ -1,0 +1,17 @@
+{
+  "name": "spreadsheet-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.0.0"
+  },
+  "dependencies": {
+    "mathjs": "^5.4.2"
+  }
+}
