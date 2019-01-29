@@ -78,3 +78,7 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+architecture.pdf
+architecture.png
+architecture.svg

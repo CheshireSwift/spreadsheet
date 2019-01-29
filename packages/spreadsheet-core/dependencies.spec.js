@@ -1,7 +1,7 @@
 const math = require('mathjs')
 
 describe('dependency unwinding', () => {
-  const dependencies = require('.')
+  const dependencies = require('./dependencies')
 
   it('finds expression dependencies', () => {
     const deps = dependencies.find(math.parse('2 * A2 + B3 * AVG(Q81)'))
